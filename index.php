@@ -49,11 +49,21 @@ foreach ($queryMap as $data) {
     $latitude[] = $data['latitude'];
     $longitude[] = $data['longitude'];
 };
+
+$point = [];
+for ($i=0;$i<12;$i++){
+    $point[$i] = [$latitude[$i], $longitude[$i]];
+};
 ?>
 
 </body>
 
 <script>
+    let coords = [];
+    coords.push(<?php echo json_encode($point)?>);
+    coords = coords[0];
+    console.log(coords);
+
     var map = L.map('map').setView([45.89860986946062, 6.12917203841142], 12);
 
     var CartoDB_VoyagerLabelsUnder = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', {
@@ -62,17 +72,18 @@ foreach ($queryMap as $data) {
         maxZoom: 20
     }).addTo(map);
 
-    coords = [[45.89856023085219, 6.117736246509577], [45.90706560732963, 6.113352659053238], [45.91763558459165, 6.128630520636682]];
+    //coords = [[45.89856023085219, 6.117736246509577], [45.90706560732963, 6.113352659053238], [45.91763558459165, 6.128630520636682]];
     rent = ['Station', 'Station', 'Station'];
     //areas
     noms = ["Prix carburant", "Prix carburant", "Prix carburant"]
     // rooms
+    //
     prix = ["1.25", "2.89", "5"]
     //outside
 
-    let l = coords.length;
+    //let l = coords.length;
 
-    for (let i = 0; i < l; i++) {
+    for (let i = 0; i < 12; i++) {
         //popus
         var pop = L.popup({
             closeOnClick: true
