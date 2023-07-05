@@ -54,6 +54,21 @@ $point = [];
 for ($i=0;$i<12;$i++){
     $point[$i] = [$latitude[$i], $longitude[$i]];
 };
+
+$queryAdresse = $pdo->query(
+    "SELECT adresse FROM point_de_vente
+    WHERE ville = 'ANNECY'");
+
+foreach ($queryAdresse as $data) {
+    $adresse[] = $data['adresse'];
+};
+
+$arayAdresse = [];
+for ($a=0;$a<12;$a++){
+    $arayAdresse [$a] = [$adresse[$a]];
+};
+
+
 ?>
 
 </body>
@@ -64,6 +79,11 @@ for ($i=0;$i<12;$i++){
     coords = coords[0];
     console.log(coords);
 
+    let adresseMap = [];
+    adresseMap.push(<?php echo json_encode($arayAdresse)?>);
+    adresseMap = adresseMap[0];
+    console.log(adresseMap);
+
     var map = L.map('map').setView([45.89860986946062, 6.12917203841142], 12);
 
     var CartoDB_VoyagerLabelsUnder = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', {
@@ -73,12 +93,11 @@ for ($i=0;$i<12;$i++){
     }).addTo(map);
 
     //coords = [[45.89856023085219, 6.117736246509577], [45.90706560732963, 6.113352659053238], [45.91763558459165, 6.128630520636682]];
-    rent = ['Station', 'Station', 'Station'];
     //areas
     noms = ["Prix carburant", "Prix carburant", "Prix carburant"]
     // rooms
     //
-    prix = ["1.25", "2.89", "5"]
+    //prix = ["1.25", "2.89", "5"]
     //outside
 
     //let l = coords.length;
@@ -87,17 +106,17 @@ for ($i=0;$i<12;$i++){
         //popus
         var pop = L.popup({
             closeOnClick: true
-        }).setContent /* affiche ce mot ('Station essence');*/('<h2>nom : ' + noms[i] + ' prix: ' + prix[i]);
+        }).setContent /* affiche ce mot ('Station essence');*/('<h2>adresse : ' + adresseMap[i] );
         //marqueur
 
         var marker = L.marker(coords[i]).addTo(map).bindPopup(pop);
 
-        //labels
-        var toollip = L.tooltip({
-            permanent: true
-        }).setContent(rent[i]);
-
-        marker.bindTooltip(toollip);
+        // //labels
+        // var toollip = L.tooltip({
+        //     permanent: true
+        // }).setContent(rent[i]);
+        //
+        // marker.bindTooltip(toollip);
     }
 
 </script>

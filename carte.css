@@ -5,3 +5,9 @@
     margin: 5%;
     z-index: 0;
 }
+.leaflet-layer,
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out,
+.leaflet-control-attribution {
+    filter: invert(85%) hue-rotate(50deg) brightness(100%) contrast(100%);
+}
