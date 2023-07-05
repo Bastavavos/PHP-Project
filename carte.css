@@ -1,0 +1,7 @@
+#map {
+    height: 580px;
+    width: 850px;
+    display: flex;
+    margin: 5%;
+    z-index: 0;
+}
